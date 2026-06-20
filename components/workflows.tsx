@@ -45,13 +45,12 @@ export default function Workflows() {
       label: "05 . Sync",
       title: "Collaborative Review",
       desc: "Merge ongoing patch streams into deployment staging sandboxes seamlessly with automated verification protocols.",
-    }
+    },
   ];
 
   return (
     <section className="relative py-16 md:py-24 overflow-hidden">
       <div className="mx-auto w-full px-4 sm:px-6 relative z-10">
-        
         {/* Section header */}
         <div className="mx-auto max-w-3xl pb-12 text-center md:pb-16">
           <div className="inline-flex items-center gap-3 pb-3 before:h-px before:w-8 before:bg-linear-to-r before:from-transparent before:to-indigo-200/50 after:h-px after:w-8 after:bg-linear-to-l after:from-transparent after:to-indigo-200/50">
@@ -63,16 +62,15 @@ export default function Workflows() {
             Map your product journey
           </h2>
           <p className="text-lg text-indigo-200/65 max-w-2xl mx-auto">
-            A fluid development lifecycle built to ship faster. Review technical milestones seamlessly as they cycle through.
+            A fluid development lifecycle built to ship faster. Review technical
+            milestones seamlessly as they cycle through.
           </p>
         </div>
 
         {/* Outer Marquee Track Wrapper Container */}
         <div className="relative flex w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,transparent_5%,#000_20%,#000_80%,transparent_95%,transparent)]">
-          
           {/* Spotlight Wrapper */}
           <Spotlight className="flex flex-row gap-6 py-4 whitespace-nowrap min-w-full no-wrap">
-            
             {/* Loop Segment 1: Driving Track (Removed hover pause) */}
             <div className="flex flex-row gap-6 shrink-0 min-w-full justify-around animate-marquee-reverse">
               {workflowCards.map((card, idx) => (
@@ -92,13 +90,21 @@ export default function Workflows() {
                     </div>
                     <div className="p-6 flex flex-col flex-grow">
                       <div className="mb-3 flex items-center justify-between">
-                        <span className={`btn-sm relative rounded-full px-2.5 py-0.5 text-xs font-medium border ${card.badgeBg}`}>
+                        <span
+                          className={`btn-sm relative rounded-full px-2.5 py-0.5 text-xs font-medium border ${card.badgeBg}`}
+                        >
                           {card.label}
                         </span>
-                        <span className="text-[10px] font-mono text-gray-600">{card.phase}</span>
+                        <span className="text-[10px] font-mono text-gray-600">
+                          {card.phase}
+                        </span>
                       </div>
-                      <h3 className="text-base font-semibold text-gray-200 mb-1">{card.title}</h3>
-                      <p className="text-xs leading-relaxed text-indigo-200/65">{card.desc}</p>
+                      <h3 className="text-base font-semibold text-gray-200 mb-1">
+                        {card.title}
+                      </h3>
+                      <p className="text-xs leading-relaxed text-indigo-200/65">
+                        {card.desc}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -106,7 +112,10 @@ export default function Workflows() {
             </div>
 
             {/* Loop Segment 2: Mirrored Clone Array (Removed hover pause) */}
-            <div className="flex flex-row gap-6 shrink-0 min-w-full justify-around animate-marquee-reverse" aria-hidden="true">
+            <div
+              className="flex flex-row gap-6 shrink-0 min-w-full justify-around animate-marquee-reverse"
+              aria-hidden="true"
+            >
               {workflowCards.map((card, idx) => (
                 <div
                   key={`track-2-${idx}`}
@@ -124,22 +133,28 @@ export default function Workflows() {
                     </div>
                     <div className="p-6 flex flex-col flex-grow">
                       <div className="mb-3 flex items-center justify-between">
-                        <span className={`btn-sm relative rounded-full px-2.5 py-0.5 text-xs font-medium border ${card.badgeBg}`}>
+                        <span
+                          className={`btn-sm relative rounded-full px-2.5 py-0.5 text-xs font-medium border ${card.badgeBg}`}
+                        >
                           {card.label}
                         </span>
-                        <span className="text-[10px] font-mono text-gray-600">{card.phase}</span>
+                        <span className="text-[10px] font-mono text-gray-600">
+                          {card.phase}
+                        </span>
                       </div>
-                      <h3 className="text-base font-semibold text-gray-200 mb-1">{card.title}</h3>
-                      <p className="text-xs leading-relaxed text-indigo-200/65">{card.desc}</p>
+                      <h3 className="text-base font-semibold text-gray-200 mb-1">
+                        {card.title}
+                      </h3>
+                      <p className="text-xs leading-relaxed text-indigo-200/65">
+                        {card.desc}
+                      </p>
                     </div>
                   </div>
                 </div>
               ))}
             </div>
-
           </Spotlight>
         </div>
-
       </div>
     </section>
   );
