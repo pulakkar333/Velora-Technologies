@@ -1,6 +1,6 @@
 # 🚀 Modern Product Teams Platform - Features Section
 
-![My Project Preview](./public/images/features1.png)
+![My Project Preview](./public/images/features.png)
 
 A high-performance, responsive landing page section built with **Next.js 14+ (App Router)** and **Tailwind CSS**. This repository contains a hyper-modern features presentation utilizing interactive Bento Grid cards, glassmorphism UI treatments, fluid full-bleed imagery, and smooth ambient glow layouts.
 
