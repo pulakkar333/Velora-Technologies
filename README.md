@@ -1,34 +1,39 @@
-# 🚀 Free React / Next.js Landing Page Template (Customized Edition)
+# 🚀 Modern Product Teams Platform - Features Section
 
 ![My Project Preview](./public/images/features.png)
 
-**Open** is a **free React / Next.js landing page template built with Tailwind CSS** for developers/makers who want to create a quick and professional landing page for their open-source projects, SaaS products, online services, and more.
-
-> 🛠️ **Custom Enhancements Included:** > * **Non-Stop Workflows Marquee**: Modified the workflow pipeline tracking carousel to flow continuously *without* pausing or breaking motion on cursor hover elements.
-> * **Full-Bleed Canvas Features Section**: Restructured layout boxes to expand showcase graphics to $100\%$ full screen view width seamlessly on all modern devices with edge-to-edge visibility.
+A high-performance, responsive landing page section built with **Next.js 14+ (App Router)** and **Tailwind CSS**. This repository contains a hyper-modern features presentation utilizing interactive Bento Grid cards, glassmorphism UI treatments, fluid full-bleed imagery, and smooth ambient glow layouts.
 
 ---
 
-## 🔗 Live Links & Extras
+## ✨ Features Included
 
-* **Live Demo:** Check the core live demo here 👉️ [https://open.cruip.com/](https://open.cruip.com/)
-* **Design Assets:** If you need the original design systems, download them from Figma's Community Hub 👉️ [https://bit.ly/401KSUS](https://bit.ly/401KSUS)
-
-Want more components, layouts, and pages? Upgrade to [Open PRO](https://cruip.com/) for a fully production-ready SaaS landing page machine.
+*   📐 **Full-Bleed Responsive Canvas**: Fluid hero feature imagery that spans $100\%$ screen width beautifully on mobile, tablet, and ultra-wide desktop monitors.
+*   🍱 **Bento Grid Layout**: A highly structured asset matrix that transitions cleanly from a single-column layout on mobile to dynamic grids on larger viewports.
+*   🎨 **High-End Glassmorphism**: Cards styled with subtle linear borders (`border-gray-800/60`), background blurs (`backdrop-blur-md`), and progressive gradient fills.
+*   💡 **Micro-Interactions**: Ambient hover effects including dynamic card translation (`hover:-translate-y-1`) and a floating halo blur aura that scales up on mouse-over.
+*   ⚡ **Modern Text Gradients**: Multi-stop CSS gradient headers with infinite linear keyframe animations for a premium SaaS aesthetic.
 
 ---
 
-## 🛠️ Usage & Local Development
+## 🛠️ Tech Stack & Requirements
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) utilizing App Router (`app/`) architectures.
+*   **Framework:** Next.js (React 18+)
+*   **Styling:** Tailwind CSS (v3 or v4 setup support)
+*   **Asset Management:** Next.js `next/image` component for automated WebP/AVIF formatting and layout-shift prevention.
+*   **Fonts:** Configured to look best with custom geometric or sans-serif typefaces (e.g., `font-nacelle`).
 
-### Getting Started
+---
 
-First, run the development server setup matching your package manager preference:
+## 📂 File Architecture
 
-```bash
-npm run dev
-# or
-pnpm dev (recommended)
-# or
-yarn dev
+Ensure your directory contains the required public image assets before mounting this component:
+
+```text
+├── public/
+│   └── images/
+│       ├── blurred-shape-gray.svg     # Ambient background gradient (Top)
+│       ├── blurred-shape.svg          # Accent background gradient (Bottom)
+│       └── features.png               # Main dashboard preview display graphic
+├── components/
+│   └── Features.tsx                   # Main component file
