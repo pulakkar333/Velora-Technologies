@@ -204,7 +204,7 @@ export default function Footer() {
               <Logo />
             </div>
             <div className="text-sm">
-              <p className="mb-3 text-indigo-200/65">
+              {/* <p className="mb-3 text-indigo-200/65">
                 © Cruip.com
                 <span className="text-gray-700"> · </span>
                 <a
@@ -213,7 +213,7 @@ export default function Footer() {
                 >
                   Terms
                 </a>
-              </p>
+              </p> */}
               <ul className="inline-flex gap-1">
                 <li>
                   <a

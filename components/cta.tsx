@@ -3,52 +3,80 @@ import BlurredShape from "@/public/images/blurred-shape.svg";
 
 export default function Cta() {
   return (
-    <section className="relative overflow-hidden">
+    <section className="relative overflow-hidden py-20 md:py-28 bg-linear-to-b from-gray-950/20 to-gray-900/10">
+      {/* Background Decorative Ambient Radial Glow */}
       <div
-        className="pointer-events-none absolute bottom-0 left-1/2 -z-10 -mb-24 ml-20 -translate-x-1/2"
+        className="pointer-events-none absolute top-1/2 left-1/2 -z-10 h-[500px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-indigo-500/5 blur-[140px]"
+        aria-hidden="true"
+      />
+
+      {/* Subtle internal abstract light streak - stretched for full-width layout */}
+      <div
+        className="pointer-events-none absolute inset-0 -z-10 flex items-center justify-center opacity-40 mix-blend-screen select-none"
         aria-hidden="true"
       >
         <Image
-          className="max-w-none"
+          className="max-w-none w-full min-w-[1200px] h-auto object-cover"
           src={BlurredShape}
-          width={760}
+          width={1440}
           height={668}
-          alt="Blurred shape"
+          alt="Blurred ambient graphic shape"
+          priority
         />
       </div>
-      <div className="max-w6xl mx-auto px-4 sm:px-6">
-        <div className="bg-linear-to-r from-transparent via-gray-800/50 py-12 md:py-20">
-          <div className="mx-auto max-w-3xl text-center">
-            <h2
-              className="animate-[gradient_6s_linear_infinite] bg-[linear-gradient(to_right,var(--color-gray-200),var(--color-indigo-200),var(--color-gray-50),var(--color-indigo-300),var(--color-gray-200))] bg-[length:200%_auto] bg-clip-text pb-8 font-nacelle text-3xl font-semibold text-transparent md:text-4xl"
-              data-aos="fade-up"
-            >
-              Join the content-first platform
-            </h2>
-            <div className="mx-auto max-w-xs sm:flex sm:max-w-none sm:justify-center">
-              <div data-aos="fade-up" data-aos-delay={400}>
-                <a
-                  className="btn group mb-4 w-full bg-linear-to-t from-indigo-600 to-indigo-500 bg-[length:100%_100%] bg-[bottom] text-white shadow-[inset_0px_1px_0px_0px_--theme(--color-white/.16)] hover:bg-[length:100%_150%] sm:mb-0 sm:w-auto"
-                  href="#0"
-                >
-                  <span className="relative inline-flex items-center">
-                    Start Building
-                    <span className="ml-1 tracking-normal text-white/50 transition-transform group-hover:translate-x-0.5">
-                      -&gt;
-                    </span>
-                  </span>
-                </a>
-              </div>
-              <div data-aos="fade-up" data-aos-delay={600}>
-                <a
-                  className="btn relative w-full bg-linear-to-b from-gray-800 to-gray-800/60 bg-[length:100%_100%] bg-[bottom] text-gray-300 before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:border before:border-transparent before:[background:linear-gradient(to_right,var(--color-gray-800),var(--color-gray-700),var(--color-gray-800))_border-box] before:[mask-composite:exclude_!important] before:[mask:linear-gradient(white_0_0)_padding-box,_linear-gradient(white_0_0)] hover:bg-[length:100%_150%] sm:ml-4 sm:w-auto"
-                  href="#0"
-                >
-                  Schedule Demo
-                </a>
-              </div>
+
+      {/* Full-Width Content Row Layout */}
+      <div className="w-full mx-auto px-4 sm:px-6 md:px-8">
+        <div className="mx-auto max-w-3xl text-center" data-aos="fade-up">
+          
+          {/* Top Micro-Tag */}
+          <div className="mb-5 inline-flex items-center gap-2 rounded-full bg-indigo-500/10 px-3 py-1 text-xs font-medium text-indigo-300 tracking-wide uppercase">
+            <span className="flex h-1.5 w-1.5 rounded-full bg-indigo-400 animate-pulse" />
+            Get Instant Access
+          </div>
+
+          {/* Header Title with Animated Metallic-Gradient */}
+          <h2 className="animate-[gradient_6s_linear_infinite] bg-[linear-gradient(to_right,var(--color-gray-100),var(--color-indigo-200),var(--color-gray-50),var(--color-indigo-300),var(--color-gray-100))] bg-[length:200%_auto] bg-clip-text pb-4 font-nacelle text-4xl font-semibold tracking-tight text-transparent sm:text-5xl md:text-6xl">
+            Join the content-first platform
+          </h2>
+          
+          {/* Subtext Paragraph */}
+          <p className="mx-auto max-w-xl text-base sm:text-lg text-indigo-200/65 leading-relaxed pb-10">
+            Supercharge your creative workflow, coordinate with global teams, and deploy production-ready digital assets in seconds.
+          </p>
+
+          {/* Call to Action Buttons */}
+          <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <div className="w-full sm:w-auto" data-aos="fade-up" data-aos-delay={200}>
+              <a
+                className="group inline-flex h-11 w-full items-center justify-center rounded-xl bg-indigo-600 px-6 text-sm font-medium text-white shadow-lg shadow-indigo-600/20 transition-all duration-200 hover:bg-indigo-500 hover:shadow-indigo-500/30 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-indigo-500/50 sm:w-auto"
+                href="#0"
+              >
+                <span className="flex items-center gap-1.5">
+                  Start Building
+                  <svg 
+                    className="h-4 w-4 text-white/70 transition-transform duration-200 group-hover:translate-x-0.5" 
+                    fill="none" 
+                    viewBox="0 0 24 24" 
+                    stroke="currentColor" 
+                    strokeWidth="2.5"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                  </svg>
+                </span>
+              </a>
+            </div>
+            
+            <div className="w-full sm:w-auto" data-aos="fade-up" data-aos-delay={400}>
+              <a
+                className="inline-flex h-11 w-full items-center justify-center rounded-xl bg-gray-900/40 hover:bg-gray-900/80 px-6 text-sm font-medium text-gray-300 backdrop-blur-md transition-all duration-200 hover:text-white focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-gray-700 sm:w-auto"
+                href="#0"
+              >
+                Schedule Demo
+              </a>
             </div>
           </div>
+
         </div>
       </div>
     </section>

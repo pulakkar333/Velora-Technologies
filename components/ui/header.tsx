@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Logo from "./logo";
 
@@ -9,32 +9,49 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileAccordion, setMobileAccordion] = useState<string | null>(null);
 
+  // Prevent background scrolling when full-screen mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [mobileMenuOpen]);
+
   const toggleMobileAccordion = (menu: string) => {
     setMobileAccordion(mobileAccordion === menu ? null : menu);
   };
 
   return (
-    <header className="relative z-40 mt-4 w-full">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="relative flex h-16 items-center justify-between gap-4 rounded-2xl bg-gray-900/80 backdrop-blur-md px-4 sm:px-6 border border-gray-800 shadow-2xl">
+    <header className="relative z-50 w-full border-b border-gray-900 bg-gray-950/80 backdrop-blur-md">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex h-20 items-center justify-between gap-4">
           {/* Left Side: Branding & Desktop Nav */}
-          <div className="flex items-center gap-8">
+          <div className="flex items-center gap-10">
+            {/* REMOVED the outer <Link href="/"> wrapper from here */}
             <Logo />
 
-            {/* Desktop Mega Navigation */}
-            <nav className="hidden lg:flex items-center gap-1.5 text-sm font-medium text-gray-400">
+            {/* Desktop Mega Navigation Container */}
+            <nav
+              className="hidden lg:flex items-center gap-2 text-sm font-medium text-gray-400"
+              onMouseLeave={() => setActiveMenu(null)}
+            >
               {/* Capabilities Link */}
-              <div
-                className="relative"
-                onMouseEnter={() => setActiveMenu("capabilities")}
-                onMouseLeave={() => setActiveMenu(null)}
-              >
+              <div className="static">
                 <button
-                  className={`flex items-center gap-1 px-3 py-2 rounded-xl transition-all cursor-pointer hover:text-white ${activeMenu === "capabilities" ? "bg-gray-800 text-white" : ""}`}
+                  onMouseEnter={() => setActiveMenu("capabilities")}
+                  className={`flex items-center gap-1 px-3 py-2 rounded-xl transition-all duration-200 cursor-pointer hover:text-white ${
+                    activeMenu === "capabilities"
+                      ? "bg-gray-900 text-white"
+                      : ""
+                  }`}
                 >
                   Capabilities
                   <svg
-                    className={`w-3 h-3 opacity-60 transition-transform ${activeMenu === "capabilities" ? "rotate-180" : ""}`}
+                    className={`w-3 h-3 opacity-60 transition-transform duration-200 ${activeMenu === "capabilities" ? "rotate-180" : ""}`}
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -42,78 +59,101 @@ export default function Header() {
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      strokeWidth={2}
+                      strokeWidth={2.5}
                       d="M19 9l-7 7-7-7"
                     />
                   </svg>
                 </button>
 
-                {/* Mega Dropdown Panel */}
+                {/* --- FULL WIDTH MEGA DROPDOWN PANEL (CAPABILITIES) --- */}
                 {activeMenu === "capabilities" && (
-                  <div className="absolute top-full left-0 mt-2 w-[520px] rounded-2xl bg-gray-950 border border-gray-800/80 p-5 shadow-2xl grid grid-cols-2 gap-4 animate-in fade-in slide-in-from-top-2 duration-150">
-                    <div className="col-span-2 text-xs font-semibold tracking-wider text-indigo-400 uppercase pb-1 border-b border-gray-900">
-                      Our Tech Expertise
+                  <div className="absolute left-0 right-0 top-full w-full border-b border-gray-900 bg-gray-950 px-4 py-8 shadow-2xl animate-in fade-in slide-in-from-top-2 duration-200">
+                    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid grid-cols-4 gap-6">
+                      {/* Left Sidebar Category Summary */}
+                      <div className="col-span-1 pr-6 border-r border-gray-900">
+                        <div className="text-xs font-semibold tracking-wider text-indigo-400 uppercase mb-2">
+                          Our Tech Expertise
+                        </div>
+                        <p className="text-xs text-gray-500 leading-relaxed">
+                          Engineered to scale. Custom blueprints built using
+                          bleeding-edge infrastructure paradigms to keep you
+                          optimized ahead of production cycles.
+                        </p>
+                      </div>
+
+                      {/* Right Sub-links Interactive Layout Columns */}
+                      <div className="col-span-3 grid grid-cols-2 gap-x-6 gap-y-2">
+                        <Link
+                          href="/services/cloud"
+                          className="group rounded-xl p-3 hover:bg-gray-900/40 transition-all border border-transparent hover:border-gray-900"
+                        >
+                          <div className="text-sm font-semibold text-gray-200 group-hover:text-indigo-400 transition-colors">
+                            Cloud Engineering
+                          </div>
+                          <p className="text-xs text-gray-500 mt-1 leading-normal">
+                            AWS, Azure & GCP secure modern cloud migrations and
+                            cloud-native architecture topologies.
+                          </p>
+                        </Link>
+
+                        <Link
+                          href="/services/cyber"
+                          className="group rounded-xl p-3 hover:bg-gray-900/40 transition-all border border-transparent hover:border-gray-900"
+                        >
+                          <div className="text-sm font-semibold text-gray-200 group-hover:text-indigo-400 transition-colors">
+                            Cyber Resilience
+                          </div>
+                          <p className="text-xs text-gray-500 mt-1 leading-normal">
+                            Zero-trust operational perimeters, dynamic
+                            firewalls, compliance management, and endpoint
+                            protection.
+                          </p>
+                        </Link>
+
+                        <Link
+                          href="/services/ai"
+                          className="group rounded-xl p-3 hover:bg-gray-900/40 transition-all border border-transparent hover:border-gray-900"
+                        >
+                          <div className="text-sm font-semibold text-gray-200 group-hover:text-indigo-400 transition-colors">
+                            AI & Automation
+                          </div>
+                          <p className="text-xs text-gray-500 mt-1 leading-normal">
+                            Bespoke enterprise fine-tuned LLM execution
+                            environments and robotic process optimization
+                            pipelines.
+                          </p>
+                        </Link>
+
+                        <Link
+                          href="/services/devops"
+                          className="group rounded-xl p-3 hover:bg-gray-900/40 transition-all border border-transparent hover:border-gray-900"
+                        >
+                          <div className="text-sm font-semibold text-gray-200 group-hover:text-indigo-400 transition-colors">
+                            DevOps & CI/CD
+                          </div>
+                          <p className="text-xs text-gray-500 mt-1 leading-normal">
+                            Continuous delivery optimizations,
+                            configuration-as-code management, and scalable
+                            Kubernetes clustering.
+                          </p>
+                        </Link>
+                      </div>
                     </div>
-                    <Link
-                      href="/services/cloud"
-                      className="group rounded-xl p-2 hover:bg-gray-900/50 transition-all"
-                    >
-                      <div className="text-sm font-medium text-gray-200 group-hover:text-white">
-                        Cloud Engineering
-                      </div>
-                      <p className="text-xs text-gray-500 mt-0.5">
-                        AWS/Azure migration & architecture
-                      </p>
-                    </Link>
-                    <Link
-                      href="/services/cyber"
-                      className="group rounded-xl p-2 hover:bg-gray-900/50 transition-all"
-                    >
-                      <div className="text-sm font-medium text-gray-200 group-hover:text-white">
-                        Cyber Resilience
-                      </div>
-                      <p className="text-xs text-gray-500 mt-0.5">
-                        Zero-trust security & compliance
-                      </p>
-                    </Link>
-                    <Link
-                      href="/services/ai"
-                      className="group rounded-xl p-2 hover:bg-gray-900/50 transition-all"
-                    >
-                      <div className="text-sm font-medium text-gray-200 group-hover:text-white">
-                        AI & Automation
-                      </div>
-                      <p className="text-xs text-gray-500 mt-0.5">
-                        Custom LLMs & workflow efficiency
-                      </p>
-                    </Link>
-                    <Link
-                      href="/services/devops"
-                      className="group rounded-xl p-2 hover:bg-gray-900/50 transition-all"
-                    >
-                      <div className="text-sm font-medium text-gray-200 group-hover:text-white">
-                        DevOps & CI/CD
-                      </div>
-                      <p className="text-xs text-gray-500 mt-0.5">
-                        Continuous delivery & k8s pipelines
-                      </p>
-                    </Link>
                   </div>
                 )}
               </div>
 
               {/* Industries Link */}
-              <div
-                className="relative"
-                onMouseEnter={() => setActiveMenu("industries")}
-                onMouseLeave={() => setActiveMenu(null)}
-              >
+              <div className="static">
                 <button
-                  className={`flex items-center gap-1 px-3 py-2 rounded-xl transition-all cursor-pointer hover:text-white ${activeMenu === "industries" ? "bg-gray-800 text-white" : ""}`}
+                  onMouseEnter={() => setActiveMenu("industries")}
+                  className={`flex items-center gap-1 px-3 py-2 rounded-xl transition-all duration-200 cursor-pointer hover:text-white ${
+                    activeMenu === "industries" ? "bg-gray-900 text-white" : ""
+                  }`}
                 >
                   Industries
                   <svg
-                    className={`w-3 h-3 opacity-60 transition-transform ${activeMenu === "industries" ? "rotate-180" : ""}`}
+                    className={`w-3 h-3 opacity-60 transition-transform duration-200 ${activeMenu === "industries" ? "rotate-180" : ""}`}
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -121,48 +161,84 @@ export default function Header() {
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      strokeWidth={2}
+                      strokeWidth={2.5}
                       d="M19 9l-7 7-7-7"
                     />
                   </svg>
                 </button>
 
+                {/* --- FULL WIDTH MEGA DROPDOWN PANEL (INDUSTRIES) --- */}
                 {activeMenu === "industries" && (
-                  <div className="absolute top-full left-0 mt-2 w-[240px] rounded-2xl bg-gray-950 border border-gray-800/80 p-2 shadow-2xl flex flex-col gap-0.5">
-                    <Link
-                      href="/industries/fintech"
-                      className="px-3 py-2 rounded-xl hover:bg-gray-900 text-gray-300 hover:text-white text-sm"
-                    >
-                      Fintech & Banking
-                    </Link>
-                    <Link
-                      href="/industries/healthcare"
-                      className="px-3 py-2 rounded-xl hover:bg-gray-900 text-gray-300 hover:text-white text-sm"
-                    >
-                      Healthcare IT (HIPAA)
-                    </Link>
-                    <Link
-                      href="/industries/logistics"
-                      className="px-3 py-2 rounded-xl hover:bg-gray-900 text-gray-300 hover:text-white text-sm"
-                    >
-                      Logistics & Supply Chain
-                    </Link>
+                  <div className="absolute left-0 right-0 top-full w-full border-b border-gray-900 bg-gray-950 px-4 py-8 shadow-2xl animate-in fade-in slide-in-from-top-2 duration-200">
+                    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid grid-cols-4 gap-6">
+                      <div className="col-span-1 pr-6 border-r border-gray-900">
+                        <div className="text-xs font-semibold tracking-wider text-indigo-400 uppercase mb-2">
+                          Sectors We Serve
+                        </div>
+                        <p className="text-xs text-gray-500 leading-relaxed">
+                          Domain specialization meets technical architecture.
+                          Tailored digital models serving regulated industries
+                          global scale.
+                        </p>
+                      </div>
+
+                      <div className="col-span-3 grid grid-cols-3 gap-4">
+                        <Link
+                          href="/industries/fintech"
+                          className="group rounded-xl p-3 hover:bg-gray-900/40 transition-all border border-transparent hover:border-gray-900"
+                        >
+                          <div className="text-sm font-semibold text-gray-200 group-hover:text-indigo-400 transition-colors">
+                            Fintech & Banking
+                          </div>
+                          <p className="text-xs text-gray-500 mt-1">
+                            High-frequency throughput ledger structures and
+                            ledger asset auditing.
+                          </p>
+                        </Link>
+
+                        <Link
+                          href="/industries/healthcare"
+                          className="group rounded-xl p-3 hover:bg-gray-900/40 transition-all border border-transparent hover:border-gray-900"
+                        >
+                          <div className="text-sm font-semibold text-gray-200 group-hover:text-indigo-400 transition-colors">
+                            Healthcare IT
+                          </div>
+                          <p className="text-xs text-gray-500 mt-1">
+                            HIPAA compliant e-health records configurations and
+                            clinical data access management.
+                          </p>
+                        </Link>
+
+                        <Link
+                          href="/industries/logistics"
+                          className="group rounded-xl p-3 hover:bg-gray-900/40 transition-all border border-transparent hover:border-gray-900"
+                        >
+                          <div className="text-sm font-semibold text-gray-200 group-hover:text-indigo-400 transition-colors">
+                            Logistics & Supply Chain
+                          </div>
+                          <p className="text-xs text-gray-500 mt-1">
+                            Real-time telematics aggregation systems and edge
+                            device node fleet controls.
+                          </p>
+                        </Link>
+                      </div>
+                    </div>
                   </div>
                 )}
               </div>
 
               <Link
                 href="/insights"
-                className="px-3 py-2 rounded-xl hover:text-white transition-colors"
+                className="px-3 py-2 rounded-xl hover:text-white transition-colors duration-200"
               >
                 Insights
               </Link>
               <Link
                 href="/careers"
-                className="px-3 py-2 rounded-xl hover:text-white transition-colors flex items-center gap-1.5"
+                className="px-3 py-2 rounded-xl hover:text-white transition-colors duration-200 flex items-center gap-1.5"
               >
                 Careers
-                <span className="text-[10px] bg-indigo-500/20 text-indigo-400 font-semibold px-1.5 py-0.5 rounded-full">
+                <span className="text-[10px] bg-indigo-500/10 text-indigo-400 font-semibold px-2 py-0.5 rounded-full border border-indigo-500/20">
                   We're hiring
                 </span>
               </Link>
@@ -170,17 +246,17 @@ export default function Header() {
           </div>
 
           {/* Right Side: Action Buttons & Mobile Burger */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-5">
             <Link
               href="/client-portal"
-              className="hidden sm:inline-block text-xs font-medium text-gray-400 hover:text-white transition-colors"
+              className="hidden md:inline-block text-sm font-medium text-gray-400 hover:text-white transition-colors duration-200"
             >
               Client Hub
             </Link>
 
             <Link
               href="/contact"
-              className="hidden sm:inline-flex h-9 items-center justify-center rounded-xl bg-white px-4 text-xs font-semibold text-gray-950 transition-colors hover:bg-gray-200"
+              className="hidden sm:inline-flex h-10 items-center justify-center rounded-xl bg-white px-5 text-sm font-semibold text-gray-950 shadow-md transition-all duration-200 hover:bg-gray-100 hover:scale-[1.02] active:scale-[0.98]"
             >
               Let's Build Together
             </Link>
@@ -188,8 +264,8 @@ export default function Header() {
             {/* Mobile Burger Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="inline-flex lg:hidden items-center justify-center p-2 rounded-xl text-gray-400 hover:text-white hover:bg-gray-800 focus:outline-none cursor-pointer transition-colors z-50"
-              aria-label="Toggle Menu"
+              className="inline-flex lg:hidden items-center justify-center p-2 rounded-xl text-gray-400 hover:text-white hover:bg-gray-900/60 focus:outline-hidden transition-colors z-50 cursor-pointer"
+              aria-label="Toggle Navigation Drawer"
             >
               <svg
                 className="w-6 h-6"
@@ -216,18 +292,18 @@ export default function Header() {
             </button>
           </div>
 
-          {/* Mobile Overlay Dropdown Drawer */}
+          {/* Mobile Overlay Full-Screen Drawer */}
           {mobileMenuOpen && (
-            <div className="absolute top-full left-0 right-0 mt-2 lg:hidden rounded-2xl bg-gray-950 border border-gray-800 p-4 shadow-2xl flex flex-col gap-3 animate-in fade-in slide-in-from-top-4 duration-200">
-              {/* Mobile Capabilities Accordion */}
-              <div className="border-b border-gray-900 pb-2">
+            <div className="fixed inset-x-0 top-20 bottom-0 z-40 lg:hidden w-full bg-gray-950 border-t border-gray-900 p-6 shadow-2xl flex flex-col gap-4 overflow-y-auto animate-in fade-in slide-in-from-top-4 duration-200">
+              {/* Mobile Accordion: Capabilities */}
+              <div className="border-b border-gray-900 pb-3">
                 <button
                   onClick={() => toggleMobileAccordion("capabilities")}
-                  className="flex items-center justify-between w-full py-2 text-sm font-semibold text-gray-300 hover:text-white"
+                  className="flex items-center justify-between w-full py-2 text-base font-semibold text-gray-200"
                 >
                   Capabilities
                   <svg
-                    className={`w-4 h-4 text-gray-500 transition-transform ${mobileAccordion === "capabilities" ? "rotate-180" : ""}`}
+                    className={`w-4 h-4 text-gray-500 transition-transform duration-200 ${mobileAccordion === "capabilities" ? "rotate-180" : ""}`}
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -242,32 +318,32 @@ export default function Header() {
                 </button>
 
                 {mobileAccordion === "capabilities" && (
-                  <div className="mt-1 ml-2 flex flex-col gap-2 pl-2 border-l border-gray-800">
+                  <div className="mt-2 ml-2 flex flex-col gap-3 pl-3 border-l border-gray-900">
                     <Link
                       href="/services/cloud"
                       onClick={() => setMobileMenuOpen(false)}
-                      className="py-1 text-xs text-gray-400 hover:text-white"
+                      className="text-sm text-gray-400 hover:text-white"
                     >
                       Cloud Engineering
                     </Link>
                     <Link
                       href="/services/cyber"
                       onClick={() => setMobileMenuOpen(false)}
-                      className="py-1 text-xs text-gray-400 hover:text-white"
+                      className="text-sm text-gray-400 hover:text-white"
                     >
                       Cyber Resilience
                     </Link>
                     <Link
                       href="/services/ai"
                       onClick={() => setMobileMenuOpen(false)}
-                      className="py-1 text-xs text-gray-400 hover:text-white"
+                      className="text-sm text-gray-400 hover:text-white"
                     >
                       AI & Automation
                     </Link>
                     <Link
                       href="/services/devops"
                       onClick={() => setMobileMenuOpen(false)}
-                      className="py-1 text-xs text-gray-400 hover:text-white"
+                      className="text-sm text-gray-400 hover:text-white"
                     >
                       DevOps & CI/CD
                     </Link>
@@ -275,15 +351,15 @@ export default function Header() {
                 )}
               </div>
 
-              {/* Mobile Industries Accordion */}
-              <div className="border-b border-gray-900 pb-2">
+              {/* Mobile Accordion: Industries */}
+              <div className="border-b border-gray-900 pb-3">
                 <button
                   onClick={() => toggleMobileAccordion("industries")}
-                  className="flex items-center justify-between w-full py-2 text-sm font-semibold text-gray-300 hover:text-white"
+                  className="flex items-center justify-between w-full py-2 text-base font-semibold text-gray-200"
                 >
                   Industries
                   <svg
-                    className={`w-4 h-4 text-gray-500 transition-transform ${mobileAccordion === "industries" ? "rotate-180" : ""}`}
+                    className={`w-4 h-4 text-gray-500 transition-transform duration-200 ${mobileAccordion === "industries" ? "rotate-180" : ""}`}
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -298,25 +374,25 @@ export default function Header() {
                 </button>
 
                 {mobileAccordion === "industries" && (
-                  <div className="mt-1 ml-2 flex flex-col gap-2 pl-2 border-l border-gray-800">
+                  <div className="mt-2 ml-2 flex flex-col gap-3 pl-3 border-l border-gray-900">
                     <Link
                       href="/industries/fintech"
                       onClick={() => setMobileMenuOpen(false)}
-                      className="py-1 text-xs text-gray-400 hover:text-white"
+                      className="text-sm text-gray-400 hover:text-white"
                     >
                       Fintech & Banking
                     </Link>
                     <Link
                       href="/industries/healthcare"
                       onClick={() => setMobileMenuOpen(false)}
-                      className="py-1 text-xs text-gray-400 hover:text-white"
+                      className="text-sm text-gray-400 hover:text-white"
                     >
                       Healthcare IT
                     </Link>
                     <Link
                       href="/industries/logistics"
                       onClick={() => setMobileMenuOpen(false)}
-                      className="py-1 text-xs text-gray-400 hover:text-white"
+                      className="text-sm text-gray-400 hover:text-white"
                     >
                       Logistics & Supply Chain
                     </Link>
@@ -324,11 +400,10 @@ export default function Header() {
                 )}
               </div>
 
-              {/* Standard Mobile Links */}
               <Link
                 href="/insights"
                 onClick={() => setMobileMenuOpen(false)}
-                className="py-1 text-sm font-semibold text-gray-300 hover:text-white border-b border-gray-900 pb-2"
+                className="py-2 text-base font-semibold text-gray-200 border-b border-gray-900"
               >
                 Insights
               </Link>
@@ -336,27 +411,27 @@ export default function Header() {
               <Link
                 href="/careers"
                 onClick={() => setMobileMenuOpen(false)}
-                className="py-1 text-sm font-semibold text-gray-300 hover:text-white flex items-center justify-between border-b border-gray-900 pb-2"
+                className="py-2 text-base font-semibold text-gray-200 flex items-center justify-between border-b border-gray-900"
               >
-                Careers
-                <span className="text-[9px] bg-indigo-500/20 text-indigo-400 font-semibold px-2 py-0.5 rounded-full">
+                <span>Careers</span>
+                <span className="text-[10px] bg-indigo-500/10 text-indigo-400 px-2 py-0.5 rounded-full border border-indigo-500/20">
                   Hiring
                 </span>
               </Link>
 
-              {/* Mobile Small-Screen CTAs */}
-              <div className="flex flex-col gap-2 mt-2 pt-1">
+              {/* Mobile Small-Screen Interactive Drawer Actions */}
+              <div className="flex flex-col gap-3 mt-auto pt-6">
                 <Link
                   href="/client-portal"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="sm:hidden block text-center py-2 text-xs font-medium text-gray-400 hover:text-white border border-gray-800 rounded-xl"
+                  className="md:hidden block text-center py-3 text-sm font-medium text-gray-300 border border-gray-900 rounded-xl bg-gray-950"
                 >
                   Client Hub
                 </Link>
                 <Link
                   href="/contact"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="block text-center py-2.5 rounded-xl bg-white text-xs font-bold text-gray-950 hover:bg-gray-200"
+                  className="block text-center py-3.5 rounded-xl bg-white text-sm font-bold text-gray-950 hover:bg-gray-100"
                 >
                   Let's Build Together
                 </Link>
