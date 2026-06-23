@@ -9,7 +9,7 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileAccordion, setMobileAccordion] = useState<string | null>(null);
 
-  // Prevent background scrolling when full-screen mobile menu is open
+  // Prevent background scrolling when mobile panel drawer is active
   useEffect(() => {
     if (mobileMenuOpen) {
       document.body.style.overflow = "hidden";
@@ -29,24 +29,28 @@ export default function Header() {
     <header className="relative z-50 w-full border-b border-gray-900 bg-gray-950/80 backdrop-blur-md">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-20 items-center justify-between gap-4">
-          {/* Left Side: Branding & Desktop Nav */}
+          
+          {/* Left Side: Branding & Desktop Nav Container */}
           <div className="flex items-center gap-10">
-            {/* REMOVED the outer <Link href="/"> wrapper from here */}
-            <Logo />
+            {/* 
+              FIXED: Removed outer <Link> tag wrapper. 
+              The <Logo /> component handles its own internal root navigation router links.
+            */}
+            <div className="flex items-center transition-opacity hover:opacity-90">
+              <Logo />
+            </div>
 
-            {/* Desktop Mega Navigation Container */}
-            <nav
+            {/* Desktop Mega Navigation Grid Layout */}
+            <nav 
               className="hidden lg:flex items-center gap-2 text-sm font-medium text-gray-400"
               onMouseLeave={() => setActiveMenu(null)}
             >
-              {/* Capabilities Link */}
+              {/* Capabilities Trigger tab */}
               <div className="static">
                 <button
                   onMouseEnter={() => setActiveMenu("capabilities")}
                   className={`flex items-center gap-1 px-3 py-2 rounded-xl transition-all duration-200 cursor-pointer hover:text-white ${
-                    activeMenu === "capabilities"
-                      ? "bg-gray-900 text-white"
-                      : ""
+                    activeMenu === "capabilities" ? "bg-gray-900 text-white" : ""
                   }`}
                 >
                   Capabilities
@@ -56,12 +60,7 @@ export default function Header() {
                     viewBox="0 0 24 24"
                     stroke="currentColor"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2.5}
-                      d="M19 9l-7 7-7-7"
-                    />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
                   </svg>
                 </button>
 
@@ -69,15 +68,14 @@ export default function Header() {
                 {activeMenu === "capabilities" && (
                   <div className="absolute left-0 right-0 top-full w-full border-b border-gray-900 bg-gray-950 px-4 py-8 shadow-2xl animate-in fade-in slide-in-from-top-2 duration-200">
                     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid grid-cols-4 gap-6">
+                      
                       {/* Left Sidebar Category Summary */}
                       <div className="col-span-1 pr-6 border-r border-gray-900">
                         <div className="text-xs font-semibold tracking-wider text-indigo-400 uppercase mb-2">
                           Our Tech Expertise
                         </div>
                         <p className="text-xs text-gray-500 leading-relaxed">
-                          Engineered to scale. Custom blueprints built using
-                          bleeding-edge infrastructure paradigms to keep you
-                          optimized ahead of production cycles.
+                          Engineered to scale. Custom blueprints built using bleeding-edge infrastructure paradigms to keep you optimized ahead of production cycles.
                         </p>
                       </div>
 
@@ -91,8 +89,7 @@ export default function Header() {
                             Cloud Engineering
                           </div>
                           <p className="text-xs text-gray-500 mt-1 leading-normal">
-                            AWS, Azure & GCP secure modern cloud migrations and
-                            cloud-native architecture topologies.
+                            AWS, Azure & GCP secure modern cloud migrations and cloud-native architecture topologies.
                           </p>
                         </Link>
 
@@ -104,9 +101,7 @@ export default function Header() {
                             Cyber Resilience
                           </div>
                           <p className="text-xs text-gray-500 mt-1 leading-normal">
-                            Zero-trust operational perimeters, dynamic
-                            firewalls, compliance management, and endpoint
-                            protection.
+                            Zero-trust operational perimeters, dynamic firewalls, compliance management, and endpoint protection.
                           </p>
                         </Link>
 
@@ -118,9 +113,7 @@ export default function Header() {
                             AI & Automation
                           </div>
                           <p className="text-xs text-gray-500 mt-1 leading-normal">
-                            Bespoke enterprise fine-tuned LLM execution
-                            environments and robotic process optimization
-                            pipelines.
+                            Bespoke enterprise fine-tuned LLM execution environments and robotic process optimization pipelines.
                           </p>
                         </Link>
 
@@ -132,18 +125,17 @@ export default function Header() {
                             DevOps & CI/CD
                           </div>
                           <p className="text-xs text-gray-500 mt-1 leading-normal">
-                            Continuous delivery optimizations,
-                            configuration-as-code management, and scalable
-                            Kubernetes clustering.
+                            Continuous delivery optimizations, configuration-as-code management, and scalable Kubernetes clustering.
                           </p>
                         </Link>
                       </div>
+
                     </div>
                   </div>
                 )}
               </div>
 
-              {/* Industries Link */}
+              {/* Industries Trigger tab */}
               <div className="static">
                 <button
                   onMouseEnter={() => setActiveMenu("industries")}
@@ -158,12 +150,7 @@ export default function Header() {
                     viewBox="0 0 24 24"
                     stroke="currentColor"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2.5}
-                      d="M19 9l-7 7-7-7"
-                    />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
                   </svg>
                 </button>
 
@@ -171,14 +158,13 @@ export default function Header() {
                 {activeMenu === "industries" && (
                   <div className="absolute left-0 right-0 top-full w-full border-b border-gray-900 bg-gray-950 px-4 py-8 shadow-2xl animate-in fade-in slide-in-from-top-2 duration-200">
                     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid grid-cols-4 gap-6">
+                      
                       <div className="col-span-1 pr-6 border-r border-gray-900">
                         <div className="text-xs font-semibold tracking-wider text-indigo-400 uppercase mb-2">
                           Sectors We Serve
                         </div>
                         <p className="text-xs text-gray-500 leading-relaxed">
-                          Domain specialization meets technical architecture.
-                          Tailored digital models serving regulated industries
-                          global scale.
+                          Domain specialization meets technical architecture. Tailored digital models serving regulated industries global scale.
                         </p>
                       </div>
 
@@ -190,12 +176,9 @@ export default function Header() {
                           <div className="text-sm font-semibold text-gray-200 group-hover:text-indigo-400 transition-colors">
                             Fintech & Banking
                           </div>
-                          <p className="text-xs text-gray-500 mt-1">
-                            High-frequency throughput ledger structures and
-                            ledger asset auditing.
-                          </p>
+                          <p className="text-xs text-gray-500 mt-1">High-frequency throughput ledger structures and ledger asset auditing.</p>
                         </Link>
-
+                        
                         <Link
                           href="/industries/healthcare"
                           className="group rounded-xl p-3 hover:bg-gray-900/40 transition-all border border-transparent hover:border-gray-900"
@@ -203,10 +186,7 @@ export default function Header() {
                           <div className="text-sm font-semibold text-gray-200 group-hover:text-indigo-400 transition-colors">
                             Healthcare IT
                           </div>
-                          <p className="text-xs text-gray-500 mt-1">
-                            HIPAA compliant e-health records configurations and
-                            clinical data access management.
-                          </p>
+                          <p className="text-xs text-gray-500 mt-1">HIPAA compliant e-health records configurations and clinical data access management.</p>
                         </Link>
 
                         <Link
@@ -216,42 +196,34 @@ export default function Header() {
                           <div className="text-sm font-semibold text-gray-200 group-hover:text-indigo-400 transition-colors">
                             Logistics & Supply Chain
                           </div>
-                          <p className="text-xs text-gray-500 mt-1">
-                            Real-time telematics aggregation systems and edge
-                            device node fleet controls.
-                          </p>
+                          <p className="text-xs text-gray-500 mt-1">Real-time telematics aggregation systems and edge device node fleet controls.</p>
                         </Link>
                       </div>
+
                     </div>
                   </div>
                 )}
               </div>
 
-              <Link
-                href="/insights"
-                className="px-3 py-2 rounded-xl hover:text-white transition-colors duration-200"
-              >
-                Insights
+              <Link href="/about" className="px-3 py-2 rounded-xl hover:text-white transition-colors duration-200">
+                About Us
               </Link>
-              <Link
-                href="/careers"
-                className="px-3 py-2 rounded-xl hover:text-white transition-colors duration-200 flex items-center gap-1.5"
-              >
+              <Link href="/careers" className="px-3 py-2 rounded-xl hover:text-white transition-colors duration-200 flex items-center gap-1.5">
                 Careers
                 <span className="text-[10px] bg-indigo-500/10 text-indigo-400 font-semibold px-2 py-0.5 rounded-full border border-indigo-500/20">
-                  We're hiring
+                  Hiring
                 </span>
               </Link>
             </nav>
           </div>
 
-          {/* Right Side: Action Buttons & Mobile Burger */}
+          {/* Right Side Actions Panel */}
           <div className="flex items-center gap-5">
             <Link
-              href="/client-portal"
+              href="/signin"
               className="hidden md:inline-block text-sm font-medium text-gray-400 hover:text-white transition-colors duration-200"
             >
-              Client Hub
+              Sign In
             </Link>
 
             <Link
@@ -261,41 +233,27 @@ export default function Header() {
               Let's Build Together
             </Link>
 
-            {/* Mobile Burger Button */}
+            {/* Mobile Hamburger Drawer Trigger */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="inline-flex lg:hidden items-center justify-center p-2 rounded-xl text-gray-400 hover:text-white hover:bg-gray-900/60 focus:outline-hidden transition-colors z-50 cursor-pointer"
-              aria-label="Toggle Navigation Drawer"
+              aria-label="Toggle Navigation Menu"
             >
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
+              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 {mobileMenuOpen ? (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 ) : (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                 )}
               </svg>
             </button>
           </div>
 
-          {/* Mobile Overlay Full-Screen Drawer */}
+          {/* Mobile Overlay Menu Drawer Panel */}
           {mobileMenuOpen && (
             <div className="fixed inset-x-0 top-20 bottom-0 z-40 lg:hidden w-full bg-gray-950 border-t border-gray-900 p-6 shadow-2xl flex flex-col gap-4 overflow-y-auto animate-in fade-in slide-in-from-top-4 duration-200">
-              {/* Mobile Accordion: Capabilities */}
+              
+              {/* Accordion List Component: Capabilities */}
               <div className="border-b border-gray-900 pb-3">
                 <button
                   onClick={() => toggleMobileAccordion("capabilities")}
@@ -308,50 +266,21 @@ export default function Header() {
                     viewBox="0 0 24 24"
                     stroke="currentColor"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M19 9l-7 7-7-7"
-                    />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
                 </button>
 
                 {mobileAccordion === "capabilities" && (
                   <div className="mt-2 ml-2 flex flex-col gap-3 pl-3 border-l border-gray-900">
-                    <Link
-                      href="/services/cloud"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="text-sm text-gray-400 hover:text-white"
-                    >
-                      Cloud Engineering
-                    </Link>
-                    <Link
-                      href="/services/cyber"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="text-sm text-gray-400 hover:text-white"
-                    >
-                      Cyber Resilience
-                    </Link>
-                    <Link
-                      href="/services/ai"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="text-sm text-gray-400 hover:text-white"
-                    >
-                      AI & Automation
-                    </Link>
-                    <Link
-                      href="/services/devops"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="text-sm text-gray-400 hover:text-white"
-                    >
-                      DevOps & CI/CD
-                    </Link>
+                    <Link href="/services/cloud" onClick={() => setMobileMenuOpen(false)} className="text-sm text-gray-400 hover:text-white">Cloud Engineering</Link>
+                    <Link href="/services/cyber" onClick={() => setMobileMenuOpen(false)} className="text-sm text-gray-400 hover:text-white">Cyber Resilience</Link>
+                    <Link href="/services/ai" onClick={() => setMobileMenuOpen(false)} className="text-sm text-gray-400 hover:text-white">AI & Automation</Link>
+                    <Link href="/services/devops" onClick={() => setMobileMenuOpen(false)} className="text-sm text-gray-400 hover:text-white">DevOps & CI/CD</Link>
                   </div>
                 )}
               </div>
 
-              {/* Mobile Accordion: Industries */}
+              {/* Accordion List Component: Industries */}
               <div className="border-b border-gray-900 pb-3">
                 <button
                   onClick={() => toggleMobileAccordion("industries")}
@@ -364,69 +293,36 @@ export default function Header() {
                     viewBox="0 0 24 24"
                     stroke="currentColor"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M19 9l-7 7-7-7"
-                    />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
                 </button>
 
                 {mobileAccordion === "industries" && (
                   <div className="mt-2 ml-2 flex flex-col gap-3 pl-3 border-l border-gray-900">
-                    <Link
-                      href="/industries/fintech"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="text-sm text-gray-400 hover:text-white"
-                    >
-                      Fintech & Banking
-                    </Link>
-                    <Link
-                      href="/industries/healthcare"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="text-sm text-gray-400 hover:text-white"
-                    >
-                      Healthcare IT
-                    </Link>
-                    <Link
-                      href="/industries/logistics"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="text-sm text-gray-400 hover:text-white"
-                    >
-                      Logistics & Supply Chain
-                    </Link>
+                    <Link href="/industries/fintech" onClick={() => setMobileMenuOpen(false)} className="text-sm text-gray-400 hover:text-white">Fintech & Banking</Link>
+                    <Link href="/industries/healthcare" onClick={() => setMobileMenuOpen(false)} className="text-sm text-gray-400 hover:text-white">Healthcare IT</Link>
+                    <Link href="/industries/logistics" onClick={() => setMobileMenuOpen(false)} className="text-sm text-gray-400 hover:text-white">Logistics & Supply Chain</Link>
                   </div>
                 )}
               </div>
 
-              <Link
-                href="/insights"
-                onClick={() => setMobileMenuOpen(false)}
-                className="py-2 text-base font-semibold text-gray-200 border-b border-gray-900"
-              >
-                Insights
+              <Link href="/about" onClick={() => setMobileMenuOpen(false)} className="py-2 text-base font-semibold text-gray-200 border-b border-gray-900">
+                About Us
               </Link>
 
-              <Link
-                href="/careers"
-                onClick={() => setMobileMenuOpen(false)}
-                className="py-2 text-base font-semibold text-gray-200 flex items-center justify-between border-b border-gray-900"
-              >
+              <Link href="/careers" onClick={() => setMobileMenuOpen(false)} className="py-2 text-base font-semibold text-gray-200 flex items-center justify-between border-b border-gray-900">
                 <span>Careers</span>
-                <span className="text-[10px] bg-indigo-500/10 text-indigo-400 px-2 py-0.5 rounded-full border border-indigo-500/20">
-                  Hiring
-                </span>
+                <span className="text-[10px] bg-indigo-500/10 text-indigo-400 px-2 py-0.5 rounded-full border border-indigo-500/20">Hiring</span>
               </Link>
 
-              {/* Mobile Small-Screen Interactive Drawer Actions */}
+              {/* Action Buttons */}
               <div className="flex flex-col gap-3 mt-auto pt-6">
                 <Link
-                  href="/client-portal"
+                  href="/signin"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="md:hidden block text-center py-3 text-sm font-medium text-gray-300 border border-gray-900 rounded-xl bg-gray-950"
+                  className="md:hidden block text-center py-3 text-sm font-medium text-gray-300 border border-gray-800 rounded-xl bg-gray-950"
                 >
-                  Client Hub
+                  Sign In
                 </Link>
                 <Link
                   href="/contact"
@@ -436,6 +332,7 @@ export default function Header() {
                   Let's Build Together
                 </Link>
               </div>
+
             </div>
           )}
         </div>
